@@ -1,6 +1,8 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+import json
 
+USERS_PATH = "default_users.json"
 db = SQLAlchemy()
 
 class User(db.Model):
@@ -11,16 +13,26 @@ class User(db.Model):
     password = db.Column(db.String(60), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
-    #email = db.Column(db.String(120), unique=True, nullable=False)
+    
+    def __repr__(self):
+        return f'{self.username} {self.password}'
 
-    #def __repr__(self):
-    #    return f"User('{self.username}', '{self.email}')"
+    def create_default_users():
+        with open(USERS_PATH, 'r') as f:
+            data = json.load(f)
+
+        for user in data:
+            if not User.query.filter_by(username=user['username']).first():
+                new_user = User(username=user['username'], password=user['password'])
+                db.session.add(new_user)
+
+        db.session.commit()
 
 class Task(db.Model):
     __tablename__ = "tasks"
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.String(1000), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)

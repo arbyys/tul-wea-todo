@@ -3,8 +3,14 @@
 {% block content %}
 
 <div>
-    test
-    <a href="https://google.com">Link test</a>
+    <ul>
+        {% for user in users %}
+            <li>{{ user.username|e }}</li>
+        {% else %}
+            <li><em>no users found</em></li>
+        {% endfor %}
+    </ul>
+        
 </div>
 
 {% endblock %}

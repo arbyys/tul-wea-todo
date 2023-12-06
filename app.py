@@ -11,13 +11,17 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 @app.route('/')
 def home():
-    return render_template("pages/home.html")
+    
+    users = User.query.all()
+
+    return render_template("pages/home.html", users=users)
 
 if __name__ == "__main__":
     db.init_app(app)
     with app.app_context():
         db.create_all()
-
+        User.create_default_users()
+    
     host = os.getenv("APP_HOST", "0.0.0.0")
     port = os.getenv("APP_PORT", 5000)
     debug = os.getenv("APP_DEBUG", False)

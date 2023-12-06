@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   app:
-    restart: always
+    restart: no
     build: .
     ports:
       - "5000:5000"
