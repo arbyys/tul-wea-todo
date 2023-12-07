@@ -1,6 +1,8 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 import json
+from werkzeug.security import generate_password_hash
+
 
 USERS_PATH = "default_users.json"
 db = SQLAlchemy()
@@ -24,6 +26,7 @@ class User(db.Model):
         for user in data:
             if not User.query.filter_by(username=user['username']).first():
                 new_user = User(username=user['username'], password=user['password'])
+                new_user.password = generate_password_hash(new_user.password)
                 db.session.add(new_user)
 
         db.session.commit()

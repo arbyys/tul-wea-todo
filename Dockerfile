@@ -8,7 +8,7 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 
-RUN touch /app/database.db
+RUN touch -c /app/database.db
 
 EXPOSE 5000
 

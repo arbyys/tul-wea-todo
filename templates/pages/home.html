@@ -5,7 +5,7 @@
 <div>
     <ul>
         {% for user in users %}
-            <li>{{ user.username|e }}</li>
+            <li>{{ user.username|e }} <br> {{ user.password|e }} </li>
         {% else %}
             <li><em>no users found</em></li>
         {% endfor %}
