@@ -26,14 +26,14 @@
         <div class="navbar-item">
             {% if current_user.is_authenticated %}
                 <span class="has-text-light">
-                    Logged as&nbsp;
+                    logged as&nbsp;
                 </span>
                 <span class="has-text-weight-bold has-text-info-light">
                     {{ current_user.username }}
                 </span>
             {% else %}
                 <span class="has-text-info-light">
-                    Logged out
+                    logged out
                 </span>
             {% endif %}
         </div>
@@ -42,11 +42,11 @@
             <div class="buttons">
                 {% if current_user.is_authenticated %}
                     <a class="button is-danger" href="/logout">
-                        Log out
+                        log out
                     </a>
                 {% else %}
                     <a class="button is-warning" href="/login">
-                        Log in
+                        log in
                     </a>
                 {% endif %}
             </div>

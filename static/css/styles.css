@@ -11,6 +11,10 @@ body {
     background-color: #fff4d4;
 }
 
+.bg-invisible-text{
+    color: #ffbf00;
+}
+
 main{
     flex: 1;
     padding: 1rem;
@@ -37,12 +41,16 @@ footer.footer{
     padding: 1.8rem 0.8rem 1.8rem;
 }
 
-header.login-header{
+header.header{
     font-size: 2rem;
 }
 
 .form-wrapper{
     max-width: 25%;
+}
+
+.form-wrapper-bigger{
+    max-width: 45%;
 }
 
 @media screen and (min-width: 1024px) {

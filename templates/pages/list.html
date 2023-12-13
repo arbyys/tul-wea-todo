@@ -3,7 +3,41 @@
 {% block content %}
 
 <main>
+    <header class="header mb-4">
+        <span class="has-text-info has-text-weight-bold">></span>
+        <span>task list</span>
+        <span class="has-text-info">(user <b>{{ current_user.username }}</b>)</span>
+    </header>
+    
+    <div class="form-wrapper-bigger mt-5">
+        <form action="login" method="POST">
+            <label class="label">create</label>
+            <div class="field is-grouped pl-3">
+                <div class="control">
+                    <input class="input is-info" type="text" name="title" id="title" placeholder="title">
+                </div>
+                <div class="control is-expanded">
+                    <input class="input is-info" type="text" name="content" id="content" placeholder="content">
+                </div>
+                <div class="control">
+                    <button class="button is-info is-fullwidth" type="submit" title="create">
+                        <span class="icon">
+                        <i class="fas fa-plus"></i>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     {% include 'components/tasks.html' %}
+
+    <div class="settings mt-5">
+        <label class="label">settings</label>
+        <div class="pl-3 mt-4">
+         todo
+        </div>
+    </div>
 </main>
 
 {% endblock %}
