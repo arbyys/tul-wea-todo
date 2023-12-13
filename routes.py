@@ -31,7 +31,12 @@ def logout():
     flask_login.logout_user()
     return 'Logged out'
 
-@app.route('/protected')
+@app.route('/list')
 @flask_login.login_required
-def protected():
-    return 'Logged in as: ' + flask_login.current_user.username
+def list():
+    return flask.render_template("pages/list.html")
+
+@app.route('/browse')
+@flask_login.login_required
+def browse():
+    return flask.render_template("pages/browse.html")

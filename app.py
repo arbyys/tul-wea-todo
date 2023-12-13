@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+import flask
 import os
 from dotenv import load_dotenv
 from flask_login import LoginManager
@@ -6,7 +6,7 @@ from models import db, User, Task
 
 load_dotenv()
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 app.secret_key = os.getenv('APP_KEY', '')
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{os.getenv('DB_PATH', 'database.db')}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -27,7 +27,7 @@ def request_loader(request):
 
 @login_manager.unauthorized_handler
 def unauthorized_handler():
-    return 'Unauthorized', 401
+    return flask.redirect(flask.url_for('login'))
 
 if __name__ == "__main__":
     # database settings

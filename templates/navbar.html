@@ -1,3 +1,51 @@
-<nav>
-    navbar
+<nav class="navbar is-info is-spaced has-shadow" role="navigation" aria-label="main navigation" x-data="{ isOpen: false }">
+  <div class="navbar-brand">
+    <a class="navbar-item is-size-4 has-text-weight-medium has-text-warning " href="/">
+      WeaTodoApp
+    </a>
+
+    <a role="button" class="navbar-burger" @click="isOpen = !isOpen" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" :class="{ 'is-active': isOpen, 'navbar-menu': true }">
+    <div class="navbar-start">
+        <a class="navbar-item is-danger" href="/list">
+        
+            my list
+        </a>
+
+        <a class="navbar-item">
+            browse
+        </a>
+    </div>
+
+    <div class="navbar-end">
+        <div class="navbar-item">
+            {% if current_user.is_authenticated %}
+                <span class="has-text-info-light">
+                    Logged as: 
+                </span>
+                <span class="has-font-weight-medium">
+                    {{ current_user.username }}
+                </span>
+            {% else %}
+                <span class="has-text-info-light">
+                    Logged out
+                </span>
+            {% endif %}
+        </div>
+
+        <div class="navbar-item">
+            <div class="buttons">
+                <a class="button is-warning">
+                Log in
+                </a>
+            </div>
+        </div>
+    </div>
+  </div>
 </nav>

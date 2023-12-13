@@ -1,9 +1,25 @@
-nav{
-    background-color: lightblue;
-    margin-bottom: 2rem;
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Roboto:wght@400;500&display=swap');
+
+body {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 17px;
+}
+
+nav.navbar .navbar-menu .navbar-item{
+    margin: 0 0.5rem;
+}
+
+nav.navbar .navbar-brand .navbar-item{
+    text-underline-offset:4px;
 }
 
 footer{
     background-color: lightblue;
     margin-top: 2rem;
+}
+
+@media screen and (min-width: 1024px) {
+    nav.navbar .navbar-brand{
+        margin-right: 2rem;
+    }
 }
