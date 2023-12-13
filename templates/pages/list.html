@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<main>
+<main class="padded">
     <header class="header mb-4">
         <span class="has-text-info has-text-weight-bold">></span>
         <span>task list</span>
@@ -10,9 +10,9 @@
     </header>
     
     <div class="form-wrapper-bigger mt-5">
-        <form action="login" method="POST">
-            <label class="label">create</label>
-            <div class="field is-grouped pl-3">
+        <form hx-post="/list/create" hx-swap="none">
+            <label class="label">create new</label>
+            <div class="field is-grouped pl-3 mt-4">
                 <div class="control">
                     <input class="input is-info" type="text" name="title" id="title" placeholder="title">
                 </div>
@@ -30,7 +30,9 @@
         </form>
     </div>
 
-    {% include 'components/tasks.html' %}
+    <div id="task-list" hx-get="/list/tasks" hx-trigger="load, newTask from:body" hx-swap="innerHTML">
+        
+    </div>
 
     <div class="settings mt-5">
         <label class="label">settings</label>

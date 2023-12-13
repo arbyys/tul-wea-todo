@@ -24,6 +24,19 @@
 </head>
 <body>
   {% include "navbar.html" %}
+  
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="w-50 p-4">
+        {% for category, message in messages %}
+          <div class="notification is-{{category}}" x-data="{ open: true }" x-show="open">
+            {{ message }}
+              <button @click="open = false" class="delete"></button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
 
   {% block content %}{% endblock %}
 

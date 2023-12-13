@@ -53,6 +53,10 @@ header.header{
     max-width: 45%;
 }
 
+.w-50{
+    width: 50%;
+}
+
 @media screen and (min-width: 1024px) {
     nav.navbar .navbar-brand{
         margin-right: 2rem;
