@@ -1,4 +1,4 @@
-<nav class="navbar is-info is-spaced has-shadow" role="navigation" aria-label="main navigation" x-data="{ isOpen: false }">
+<nav class="navbar is-info is-spaced" role="navigation" aria-label="main navigation" x-data="{ isOpen: false }">
   <div class="navbar-brand">
     <a class="navbar-item is-size-4 has-text-weight-medium has-text-warning " href="/">
       WeaTodoApp
@@ -14,11 +14,10 @@
   <div id="navbarBasicExample" :class="{ 'is-active': isOpen, 'navbar-menu': true }">
     <div class="navbar-start">
         <a class="navbar-item is-danger" href="/list">
-        
             my list
         </a>
 
-        <a class="navbar-item">
+        <a class="navbar-item" href="/browse">
             browse
         </a>
     </div>
@@ -26,10 +25,10 @@
     <div class="navbar-end">
         <div class="navbar-item">
             {% if current_user.is_authenticated %}
-                <span class="has-text-info-light">
-                    Logged as: 
+                <span class="has-text-light">
+                    Logged as&nbsp;
                 </span>
-                <span class="has-font-weight-medium">
+                <span class="has-text-weight-bold has-text-info-light">
                     {{ current_user.username }}
                 </span>
             {% else %}
@@ -41,9 +40,15 @@
 
         <div class="navbar-item">
             <div class="buttons">
-                <a class="button is-warning">
-                Log in
-                </a>
+                {% if current_user.is_authenticated %}
+                    <a class="button is-danger" href="/logout">
+                        Log out
+                    </a>
+                {% else %}
+                    <a class="button is-warning" href="/login">
+                        Log in
+                    </a>
+                {% endif %}
             </div>
         </div>
     </div>

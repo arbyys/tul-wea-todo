@@ -22,14 +22,14 @@ def login():
 
         if user and check_password_hash(user.password, password):
             flask_login.login_user(user)
-            return flask.redirect(flask.url_for('protected'))
+            return flask.redirect(flask.url_for('list'))
 
         return 'Bad login'
 
 @app.route('/logout')
 def logout():
     flask_login.logout_user()
-    return 'Logged out'
+    return flask.redirect(flask.url_for('home'))
 
 @app.route('/list')
 @flask_login.login_required

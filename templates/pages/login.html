@@ -2,13 +2,36 @@
 
 {% block content %}
 
-<main>
-    login url
-    <form action='login' method='POST'>
-        <input type='text' name='username' id='username' placeholder='username'/>
-        <input type='password' name='password' id='password' placeholder='password'/>
-        <input type='submit' name='submit'/>
-    </form>
+<main class="padded">
+    <header class="login-header">
+        <span class="has-text-info has-text-weight-bold">></span>
+        log in
+    </header>
+    <div class="form-wrapper">
+        <form action="login" method="POST">
+            <div class="field mt-4">
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input is-info" type="text" name="username" id="username" placeholder="username">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user has-text-info"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field mt-2">
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input is-info" type="password" name="password" id="password" placeholder="password">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-lock has-text-info"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field has-text-center mt-5">
+                <div class="control">
+                    <button class="button is-info is-fullwidth" type="submit">submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </main>
 
 {% endblock %}
