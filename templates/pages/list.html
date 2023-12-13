@@ -10,8 +10,10 @@
     </header>
     
     <div class="form-wrapper-bigger mt-5">
-        <form hx-post="/list/create" hx-swap="none">
-            <label class="label">create new</label>
+        <form hx-post="/list/create"
+              hx-swap="innerHTML"
+              hx-on::after-request="this.reset()">
+            <label class="label has-text-info">create new</label>
             <div class="field is-grouped pl-3 mt-4">
                 <div class="control">
                     <input class="input is-info" type="text" name="title" id="title" placeholder="title">
@@ -35,7 +37,7 @@
     </div>
 
     <div class="settings mt-5">
-        <label class="label">settings</label>
+        <label class="label has-text-info">settings</label>
         <div class="pl-3 mt-4">
          todo
         </div>

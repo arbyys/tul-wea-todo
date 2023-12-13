@@ -51,20 +51,20 @@ def tasks():
 def create():
     title = flask.request.form.get('title')
     content = flask.request.form.get('content')
-    if (title and content):
+    if (title.strip() and content.strip()):
         new_task = Task(title=title, content=content, user_id=flask_login.current_user.id)
         db.session.add(new_task)
         db.session.commit()
 
         #tasks = Task.query.filter_by(user_id=flask_login.current_user.id).order_by(Task.created_at.desc()).all()
         
-        return '', 201, {'HX-Trigger': 'newTask'}
+        return "", 201, {"HX-Trigger": "newTask", "HX-Reswap": "none"}
         #return flask.render_template("components/tasks.html", tasks=tasks)
 
     
-    flask.flash('missing title or content', 'danger')
-    return '', 400, {'HX-Trigger': 'error'}
-    return flask.redirect(flask.url_for('list'))
+    #flask.flash("missing title or content", "danger")
+    error="title or content missing!"
+    return flask.render_template("components/error.html", content=error), 400, {"HX-Retarget": "#htmx-error"}
 
 @app.route('/browse')
 @flask_login.login_required
