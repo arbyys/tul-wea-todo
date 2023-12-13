@@ -1,6 +1,6 @@
 import flask
 import flask_login
-from models import User
+from models import User, Task
 from __main__ import app
 from werkzeug.security import check_password_hash
 
@@ -34,7 +34,9 @@ def logout():
 @app.route('/list')
 @flask_login.login_required
 def list():
-    return flask.render_template("pages/list.html")
+    tasks = Task.query.filter_by(user_id=flask_login.current_user.id).order_by(Task.created_at.desc()).all()
+
+    return flask.render_template("pages/list.html", tasks=tasks)
 
 @app.route('/browse')
 @flask_login.login_required
