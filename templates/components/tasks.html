@@ -30,14 +30,16 @@
                         {% if task["is_completed"] %}
 
                         <button class="button is-info"
-                                hx-patch="/list/undone/{{task['id']}}"
+                                hx-patch="/list/undone/{{ task['id'] }}"
                                 hx-swap="innerHTML">
                         <span class="icon is-small">
                             <i class="fas fa-xmark"></i>
                         </span>
                         <span>Undone</span>
                         </button>
+
                         {% else %}
+
                         <button class="button is-info">
                         <span class="icon is-small">
                             <i class="fas fa-edit"></i>
@@ -46,7 +48,7 @@
                         </button>
 
                         <button class="button is-info"
-                                hx-patch="/list/done/{{task['id']}}"
+                                hx-patch="/list/done/{{ task['id'] }}"
                                 hx-swap="innerHTML">
                         <span class="icon is-small">
                             <i class="fas fa-check"></i>
@@ -55,7 +57,11 @@
                         </button>
 
                         {% endif %}
-                        <button class="button is-danger">
+
+                        <button class="button is-danger"
+                                hx-delete="/list/delete/{{ task['id'] }}"
+                                hx-confirm="Are you sure you want to delete this task?"
+                                hx-swap="innerHTML">
                         <span class="icon is-small">
                             <i class="fas fa-trash-can"></i>
                         </span>

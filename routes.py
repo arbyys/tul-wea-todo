@@ -71,6 +71,18 @@ def undone(id=-1):
     error="this task does not exist!"
     return flask.render_template("components/error.html", content=error), 400, {"HX-Retarget": "#htmx-error"}
 
+@app.route("/list/delete/<id>", methods=["DELETE"])
+@flask_login.login_required
+def remove(id=-1):
+    task = Task.query.filter_by(id=id, user_id=flask_login.current_user.id).first()
+
+    if task:
+        db.session.delete(task)
+        db.session.commit()
+        return "", 201, {"HX-Trigger": "newTask", "HX-Reswap": "none"}
+    
+    error="this task does not exist!"
+    return flask.render_template("components/error.html", content=error), 400, {"HX-Retarget": "#htmx-error"}
 
 @app.route("/list/create", methods=["PATRCH"])
 @flask_login.login_required
