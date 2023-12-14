@@ -1,26 +1,65 @@
 <div class="mt-5">
-    <label class="label has-text-info">list</label>
-    <div class="list w-50">
+    <label class="label has-overflow-ellipsis has-text-info">list</label>
+    <div class="list task-list-main">
         {% for task in tasks %}
-            <div class="list-item">
+            <div class="list-item box has-background-warning-light">
+                <div class="list-item-image">
+                    {% if task["is_completed"] %}
+                        <span class="icon">
+                        <i class="fas fa-square-check has-text-info"></i>
+                        </span>
+                    {% else %}
+                        <span class="icon ">
+                        <i class="fas fa-square has-text-info"></i>
+                        </span>
+                    {% endif %}
+                </div>
+
+                {% if task["is_completed"] %}
+                <div class="list-item-content list-item-done">
+                {% else %}
                 <div class="list-item-content">
+                {% endif %}
+
                     <div class="list-item-title">{{ task["title"] }}</div>
                     <div class="list-item-description">{{ task["content"] }}</div>
                 </div>
 
                 <div class="list-item-controls">
                     <div class="buttons is-right">
-                        <button class="button">
+                        {% if task["is_completed"] %}
+
+                        <button class="button is-info"
+                                hx-patch="/list/undone/{{task['id']}}"
+                                hx-swap="innerHTML">
+                        <span class="icon is-small">
+                            <i class="fas fa-xmark"></i>
+                        </span>
+                        <span>Undone</span>
+                        </button>
+                        {% else %}
+                        <button class="button is-info">
                         <span class="icon is-small">
                             <i class="fas fa-edit"></i>
                         </span>
                         <span>Edit</span>
                         </button>
 
-                        <button class="button">
+                        <button class="button is-info"
+                                hx-patch="/list/done/{{task['id']}}"
+                                hx-swap="innerHTML">
                         <span class="icon is-small">
-                            <i class="fas fa-ellipsis-h"></i>
+                            <i class="fas fa-check"></i>
                         </span>
+                        <span>Done</span>
+                        </button>
+
+                        {% endif %}
+                        <button class="button is-danger">
+                        <span class="icon is-small">
+                            <i class="fas fa-trash-can"></i>
+                        </span>
+                        <span>Remove</span>
                         </button>
                     </div>
                 </div>

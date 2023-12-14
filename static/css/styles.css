@@ -57,8 +57,32 @@ header.header{
     width: 50%;
 }
 
+.box:not(:last-child){
+    margin-bottom: 0.8rem;
+}
+
+.box{
+    border: 1px solid #dedbba;
+    padding: 1.25rem 1.25rem 1.25rem 0.8rem;
+}
+
+.list-item-done{
+    opacity: 0.2;
+}
+
+.task-list-main{
+    max-height: 90vh;
+    overflow: auto;
+    width: 95%;
+    padding-right:1.7rem;
+}
+
 @media screen and (min-width: 1024px) {
     nav.navbar .navbar-brand{
         margin-right: 2rem;
+    }
+        
+    .task-list-main{
+        width: 70%;
     }
 }

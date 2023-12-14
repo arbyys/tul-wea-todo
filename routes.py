@@ -45,8 +45,34 @@ def tasks():
     tasks = Task.query.filter_by(user_id=flask_login.current_user.id).order_by(Task.created_at.desc()).all()
     return flask.render_template("components/tasks.html", tasks=tasks)
 
+@app.route("/list/done/<id>", methods=["PATCH"])
+@flask_login.login_required
+def done(id=-1):
+    task = Task.query.filter_by(id=id, user_id=flask_login.current_user.id).first()
 
-@app.route("/list/create", methods=["POST"])
+    if task:
+        task.is_completed = True
+        db.session.commit()
+        return "", 201, {"HX-Trigger": "newTask", "HX-Reswap": "none"}
+    
+    error="this task does not exist!"
+    return flask.render_template("components/error.html", content=error), 400, {"HX-Retarget": "#htmx-error"}
+
+@app.route("/list/undone/<id>", methods=["PATCH"])
+@flask_login.login_required
+def undone(id=-1):
+    task = Task.query.filter_by(id=id, user_id=flask_login.current_user.id).first()
+
+    if task:
+        task.is_completed = False
+        db.session.commit()
+        return "", 201, {"HX-Trigger": "newTask", "HX-Reswap": "none"}
+    
+    error="this task does not exist!"
+    return flask.render_template("components/error.html", content=error), 400, {"HX-Retarget": "#htmx-error"}
+
+
+@app.route("/list/create", methods=["PATRCH"])
 @flask_login.login_required
 def create():
     title = flask.request.form.get('title')
@@ -55,14 +81,9 @@ def create():
         new_task = Task(title=title, content=content, user_id=flask_login.current_user.id)
         db.session.add(new_task)
         db.session.commit()
-
-        #tasks = Task.query.filter_by(user_id=flask_login.current_user.id).order_by(Task.created_at.desc()).all()
         
         return "", 201, {"HX-Trigger": "newTask", "HX-Reswap": "none"}
-        #return flask.render_template("components/tasks.html", tasks=tasks)
 
-    
-    #flask.flash("missing title or content", "danger")
     error="title or content missing!"
     return flask.render_template("components/error.html", content=error), 400, {"HX-Retarget": "#htmx-error"}
 
