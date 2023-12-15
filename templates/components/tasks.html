@@ -2,7 +2,8 @@
     <label class="label has-overflow-ellipsis has-text-info">list</label>
     <div class="list task-list-main">
         {% for task in tasks %}
-            <div class="list-item box has-background-warning-light">
+            <div class="list-item box has-background-warning-light"
+                 x-data="{ editing: false }">
                 <div class="list-item-image">
                     {% if task["is_completed"] %}
                         <span class="icon">
@@ -20,9 +21,22 @@
                 {% else %}
                 <div class="list-item-content">
                 {% endif %}
-
-                    <div class="list-item-title">{{ task["title"] }}</div>
-                    <div class="list-item-description">{{ task["content"] }}</div>
+                    <div x-show="!editing"> 
+                        <div class="list-item-title">
+                            <span>{{ task['title'] }}</span>
+                        </div>
+                        <div class="list-item-description">
+                            <span>{{ task['content'] }}</span>
+                        </div>
+                    </div>
+                    <form x-show="editing"
+                          hx-post="/list/edit/{{ task['id'] }}"
+                          hx-trigger="keyup changed input delay:300ms from:.title-value, keyup changed input delay:300ms from:.content-value"
+                          hx-swap="innerHTML">
+                            
+                        <input class="title-value input is-info w-50" type="text" name="title" value="{{ task['title'] }}">
+                        <input class="content-value input is-info w-50 mt-2" type="text" name="content" value="{{ task['content'] }}">
+                    </form>
                 </div>
 
                 <div class="list-item-controls">
@@ -35,26 +49,41 @@
                         <span class="icon is-small">
                             <i class="fas fa-xmark"></i>
                         </span>
-                        <span>Undone</span>
+                        <span>undone</span>
                         </button>
 
                         {% else %}
-
-                        <button class="button is-info">
+                        <button class="button is-info"
+                            x-on:click="editing = !editing; $dispatch('newTask')"
+                            x-show="editing">
+                            
                         <span class="icon is-small">
                             <i class="fas fa-edit"></i>
                         </span>
-                        <span>Edit</span>
+                        <span>close edit</span>
                         </button>
 
                         <button class="button is-info"
-                                hx-patch="/list/done/{{ task['id'] }}"
-                                hx-swap="innerHTML">
+                            x-on:click="editing = !editing;"
+                            x-show="!editing">
+                            
                         <span class="icon is-small">
-                            <i class="fas fa-check"></i>
+                            <i class="fas fa-edit"></i>
                         </span>
-                        <span>Done</span>
+                        <span>edit</span>
                         </button>
+
+                        <span class="displayer" x-show="!editing">
+                            <button class="button is-info"
+                                    hx-trigger="click"
+                                    hx-patch="/list/done/{{ task['id'] }}"
+                                    hx-swap="innerHTML">
+                            <span class="icon is-small">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span>done</span>
+                            </button>
+                        </span>
 
                         {% endif %}
 
@@ -65,7 +94,7 @@
                         <span class="icon is-small">
                             <i class="fas fa-trash-can"></i>
                         </span>
-                        <span>Remove</span>
+                        <span>remove</span>
                         </button>
                     </div>
                 </div>

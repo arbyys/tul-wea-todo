@@ -45,6 +45,23 @@ def tasks():
     tasks = Task.query.filter_by(user_id=flask_login.current_user.id).order_by(Task.created_at.desc()).all()
     return flask.render_template("components/tasks.html", tasks=tasks)
 
+@app.route("/list/edit/<id>", methods=["POST"])
+@flask_login.login_required
+def edit(id=-1):
+    new_title = flask.request.form.get('title')
+    new_content = flask.request.form.get('content')
+
+    task = Task.query.filter_by(id=id, user_id=flask_login.current_user.id).first()
+
+    if task and new_title.strip() and new_content.strip():
+        task.title = new_title
+        task.content = new_content
+        db.session.commit()
+        return "", 201, {"HX-Reswap": "none"}
+    
+    error="this task does not exist!"
+    return flask.render_template("components/error.html", content=error), 400, {"HX-Retarget": "#htmx-error"}
+
 @app.route("/list/done/<id>", methods=["PATCH"])
 @flask_login.login_required
 def done(id=-1):
@@ -84,7 +101,7 @@ def remove(id=-1):
     error="this task does not exist!"
     return flask.render_template("components/error.html", content=error), 400, {"HX-Retarget": "#htmx-error"}
 
-@app.route("/list/create", methods=["PATRCH"])
+@app.route("/list/create", methods=["PUT"])
 @flask_login.login_required
 def create():
     title = flask.request.form.get('title')

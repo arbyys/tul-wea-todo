@@ -10,7 +10,7 @@
     </header>
     
     <div class="form-wrapper-bigger mt-5">
-        <form hx-post="/list/create"
+        <form hx-put="/list/create"
               hx-swap="innerHTML"
               hx-on::after-request="this.reset()">
             <label class="label has-text-info">create new</label>
@@ -36,7 +36,7 @@
          hx-get="/list/tasks" 
          hx-trigger="load, newTask from:body" 
          hx-swap="innerHTML">
-         
+
     </div>
 
     <div class="settings mt-5">
