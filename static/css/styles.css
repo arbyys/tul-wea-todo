@@ -24,6 +24,18 @@ main{
     padding: 1rem;
 }
 
+.edit-form-wrapper{
+    position: relative;
+}
+
+#spinner{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50px;
+    height: 50px;
+}
+
 main.padded{
     padding: 3rem;
 }
@@ -63,6 +75,10 @@ header.header{
 
 .displayer{
     display: flex;
+}
+
+.has-text-accented{
+    color: #ffeaad;
 }
 
 .box:not(:last-child){
