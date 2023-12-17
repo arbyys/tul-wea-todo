@@ -26,8 +26,8 @@
 - routy aplikace
     - GET `/` - home routa, výchzí bod
     - GET `/tasks/{format=html}` - získá seznam všech úkolů
-    - POST `/crete-task` - vytvoří nový úkol
-    - PUT `/update-task/{id}` - aktualizuje úkol
+    - PUT `/crete-task` - vytvoří nový úkol
+    - PATCH `/update-task/{id}` - aktualizuje úkol
     - DELETE `/delete-task/{id}` - smaže úkol
 
 ## Poznatky

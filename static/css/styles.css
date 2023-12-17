@@ -36,6 +36,10 @@ main{
     height: 50px;
 }
 
+.search-wrapper{
+    margin-bottom: 1rem;
+}
+
 main.padded{
     padding: 3rem;
 }
@@ -67,6 +71,10 @@ header.header{
 
 .form-wrapper-bigger{
     max-width: 45%;
+}
+
+.w-25{
+    width: 25%;
 }
 
 .w-50{

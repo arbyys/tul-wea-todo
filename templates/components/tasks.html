@@ -1,6 +1,11 @@
 <div class="mt-5">
     <label class="label has-overflow-ellipsis has-text-info">list</label>
-    <div class="list task-list-main">
+    
+    <div class="search-wrapper ml-3">
+
+    </div>
+    
+    <div class="list task-list-main ml-3">
         {% for task in tasks %}
             <div class="list-item box has-background-warning-light edit-form-wrapper"
                  x-data="{ editing: false }">
@@ -32,10 +37,10 @@
                     <form x-show="editing"
                           class="edit-form"
                           hx-post="/list/edit/{{ task['id'] }}"
-                          hx-trigger="keyup changed input delay:300ms from:.title-value, keyup changed input delay:300ms from:.content-value"
+                          hx-trigger="input changed delay:300ms from:find .title-value, input changed delay:300ms from:find .content-value"
                           hx-swap="innerHTML">
 
-                        <img id="spinner" class="htmx-indicator" src="{{ url_for('static', filename='img/loader.svg') }}""/>
+                        <img id="spinner" class="htmx-indicator" src="{{ url_for('static', filename='img/loader.svg') }}" />
                             
                         <input class="title-value input is-info w-50" type="text" name="title" value="{{ task['title'] }}">
                         <input class="content-value input is-info w-50 mt-2" type="text" name="content" value="{{ task['content'] }}">

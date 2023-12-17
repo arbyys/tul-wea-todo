@@ -27,22 +27,28 @@ def login():
         flask.flash('bad credentials!', 'danger')
         return flask.redirect(flask.url_for('login'))
 
-@app.route('/logout')
+@app.route('/logout', methods=["GET"])
 def logout():
     flask_login.logout_user()
     return flask.redirect(flask.url_for('home'))
 
-@app.route('/list')
+@app.route('/list', methods=["GET"])
 @flask_login.login_required
 def list():
-    #tasks = Task.query.filter_by(user_id=flask_login.current_user.id).order_by(Task.created_at.desc()).all()
-
     return flask.render_template("pages/list.html")
 
-@app.route('/list/tasks')
+@app.route('/list/tasks', methods=["GET"])
+@app.route('/list/tasks/<search>', methods=["GET"])
 @flask_login.login_required
-def tasks():
-    tasks = Task.query.filter_by(user_id=flask_login.current_user.id).order_by(Task.created_at.desc()).all()
+def tasks(search=None):
+    if search:
+        print("non")
+        tasks = Task.query.filter(
+            (Task.user_id == flask_login.current_user.id) &
+            ((Task.title.ilike(f"%{search}%")) | (Task.content.ilike(f"%{search}%")))
+        ).order_by(Task.created_at.desc()).all()
+    else:
+        tasks = Task.query.filter(Task.user_id == flask_login.current_user.id).order_by(Task.created_at.desc()).all()
     return flask.render_template("components/tasks.html", tasks=tasks)
 
 @app.route("/list/edit/<id>", methods=["POST"])
