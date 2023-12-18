@@ -67,7 +67,7 @@ def edit(id=-1):
         task.title = new_title
         task.content = new_content
         db.session.commit()
-        return "", 201, {"HX-Reswap": "none"}
+        return "", 204, {"HX-Reswap": "none"}
     
     error="this task does not exist!"
     return flask.render_template("components/error.html", content=error), 400, {"HX-Retarget": "#htmx-error"}
@@ -80,7 +80,7 @@ def done(id=-1):
     if task:
         task.is_completed = True
         db.session.commit()
-        return "", 201, {"HX-Trigger": "updateList", "HX-Reswap": "none"}
+        return "", 204, {"HX-Trigger": "updateList", "HX-Reswap": "none"}
     
     error="this task does not exist!"
     return flask.render_template("components/error.html", content=error), 400, {"HX-Retarget": "#htmx-error"}
@@ -93,7 +93,7 @@ def undone(id=-1):
     if task:
         task.is_completed = False
         db.session.commit()
-        return "", 201, {"HX-Trigger": "updateList", "HX-Reswap": "none"}
+        return "", 204, {"HX-Trigger": "updateList", "HX-Reswap": "none"}
     
     error="this task does not exist!"
     return flask.render_template("components/error.html", content=error), 400, {"HX-Retarget": "#htmx-error"}
@@ -106,7 +106,7 @@ def remove(id=-1):
     if task:
         db.session.delete(task)
         db.session.commit()
-        return "", 201, {"HX-Trigger": "updateList", "HX-Reswap": "none"}
+        return "", 200, {"HX-Trigger": "updateList", "HX-Reswap": "none"}
     
     error="this task does not exist!"
     return flask.render_template("components/error.html", content=error), 400, {"HX-Retarget": "#htmx-error"}
