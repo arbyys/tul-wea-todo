@@ -28,7 +28,7 @@ main{
     position: relative;
 }
 
-#spinner{
+.spinner-edit{
     position: absolute;
     left: 0;
     top: 0;
@@ -36,8 +36,16 @@ main{
     height: 50px;
 }
 
+.spinner-search{
+    width: 50px;
+    height: 50px;
+}
+
 .search-wrapper{
+    position: relative;
     margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
 }
 
 main.padded{

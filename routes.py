@@ -37,15 +37,19 @@ def logout():
 def list():
     return flask.render_template("pages/list.html")
 
-@app.route('/list/tasks', methods=["GET"])
-@app.route('/list/tasks/<search>', methods=["GET"])
+@app.route('/browse')
 @flask_login.login_required
-def tasks(search=None):
-    if search:
-        print("non")
+def browse():
+    return flask.render_template("pages/browse.html")
+
+@app.route('/list/tasks', methods=["GET"])
+@flask_login.login_required
+def tasks():
+    query = flask.request.args.get('query')
+    if query:
         tasks = Task.query.filter(
             (Task.user_id == flask_login.current_user.id) &
-            ((Task.title.ilike(f"%{search}%")) | (Task.content.ilike(f"%{search}%")))
+            ((Task.title.ilike(f"%{query}%")) | (Task.content.ilike(f"%{query}%")))
         ).order_by(Task.created_at.desc()).all()
     else:
         tasks = Task.query.filter(Task.user_id == flask_login.current_user.id).order_by(Task.created_at.desc()).all()
@@ -121,8 +125,3 @@ def create():
 
     error="title or content missing!"
     return flask.render_template("components/error.html", content=error), 400, {"HX-Retarget": "#htmx-error"}
-
-@app.route('/browse')
-@flask_login.login_required
-def browse():
-    return flask.render_template("pages/browse.html")

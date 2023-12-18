@@ -32,12 +32,31 @@
         </form>
     </div>
 
-    <div id="task-list" 
-         hx-get="/list/tasks" 
-         hx-trigger="load, updateList from:body" 
-         hx-swap="innerHTML">
+    <div class="mt-5">
+        <label class="label has-overflow-ellipsis has-text-info">list</label>
+        
+        <div class="search-wrapper ml-3">
 
+            <input class="input is-info w-25" type="search" id="search" name="query" placeholder="filter tasks"
+                    hx-get="/list/tasks"
+                    hx-trigger="input changed delay:400ms"
+                    hx-target="#task-list"
+                    hx-swap="innerHTML"
+                    hx-indicator="#spinner-search">
+
+            <img id="spinner-search" class="spinner-search htmx-indicator" src="{{ url_for('static', filename='img/loader.svg') }}" />
+
+        </div>
+
+        <div id="task-list" 
+            hx-get="/list/tasks"
+            hx-include="#search" 
+            hx-trigger="load, updateList from:body" 
+            hx-swap="innerHTML">
+
+        </div>
     </div>
+
 
     <div class="settings mt-5">
         <label class="label has-text-info">settings</label>
