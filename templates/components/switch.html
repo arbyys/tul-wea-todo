@@ -1,0 +1,30 @@
+<div class="field" id="switch-wrapper">
+    <span class="mr-4">
+        <span>Private account</span>
+        <div class="popover is-popover-top">
+        
+            <span class="icon info-icon popover-trigger has-text-info">
+                <i class="fas fa-circle-info"></i>
+            </span>
+
+            <div class="popover-content">
+                If you mark your account as <b>private</b>, it will not be displayed to other users in the browse tab
+            </div>
+        </div>
+    </span>
+
+    <input id="is_private" 
+           type="checkbox" 
+           name="is_private" 
+           class="switch is-rtl is-info" 
+           {% if current_user.has_private_profile %}
+              checked
+           {% endif %}
+
+           hx-post="/user/update_private"
+           hx-include="this"
+           hx-target="#switch-wrapper"
+           hx-swap="outerHTML"
+    >
+    <label for="is_private"></label>
+</div>

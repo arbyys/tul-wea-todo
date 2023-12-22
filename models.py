@@ -12,6 +12,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    has_private_profile = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
     
@@ -33,7 +34,6 @@ class User(db.Model):
     def create_default_users():
         with open(USERS_PATH, 'r') as f:
             data = json.load(f)
-
 
         for user in data:
             if not User.query.filter_by(username=user['username']).first():

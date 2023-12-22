@@ -3,12 +3,11 @@ import flask_login
 from models import db, User, Task
 from __main__ import app
 from werkzeug.security import check_password_hash
+import sys
 
 @app.route("/")
 def home():
-    users = User.query.all()
-
-    return flask.render_template("pages/home.html", users=users)
+    return flask.render_template("pages/home.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -125,3 +124,13 @@ def create():
 
     error="title or content missing!"
     return flask.render_template("components/error.html", content=error), 400, {"HX-Retarget": "#htmx-error"}
+
+@app.route("/user/update_private", methods=["POST"])
+@flask_login.login_required
+def update_private():
+    is_private = flask.request.form.get("is_private")
+
+    flask_login.current_user.has_private_profile = True if (is_private == "on") else False
+    db.session.commit()
+
+    return flask.render_template("components/switch.html"), 200

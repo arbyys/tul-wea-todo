@@ -41,6 +41,11 @@ main{
     height: 50px;
 }
 
+#switch-wrapper{
+    display: flex;
+    align-items: center;
+}
+
 .search-wrapper{
     position: relative;
     margin-bottom: 1rem;

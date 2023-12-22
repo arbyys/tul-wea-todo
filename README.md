@@ -31,8 +31,6 @@
     - DELETE `/delete-task/{id}` - smaže úkol
 
 ## Poznatky
-- databázi pravděpodobně přes SQLite
-- možná nějaký příkaz na vytvoření uživatelů a prázdné tabulky úkolů ("migrace-like")
 
 ## TODO
-- vymyslet systém uživatelů
+- checknout ctrl+f TODO

@@ -5,7 +5,7 @@
 <main class="padded">
     <header class="header mb-4">
         <span class="has-text-info has-text-weight-bold">></span>
-        <span>task list</span>
+        <span>my list</span>
         <span class="has-text-info">(user <b>{{ current_user.username }}</b>)</span>
     </header>
     
@@ -22,7 +22,7 @@
                     <input class="input is-info" type="text" name="content" id="content" placeholder="content">
                 </div>
                 <div class="control">
-                    <button class="button is-info is-fullwidth" type="submit" title="create">
+                    <button class="button is-info is-fullwidth" type="submit" title="create new task">
                         <span class="icon">
                         <i class="fas fa-plus"></i>
                         </span>
@@ -61,9 +61,10 @@
     <div class="settings mt-5">
         <label class="label has-text-info">settings</label>
         <div class="pl-3 mt-4">
-         todo
+            {% include "components/switch.html" %}
         </div>
     </div>
+
 </main>
 
 {% endblock %}
