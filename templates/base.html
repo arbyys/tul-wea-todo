@@ -6,20 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="WEA - Todo list">
   <meta name="author" content="Adam Petříček">
-  <link rel="shortcut icon" href="/static/favicon.ico">
+  <link rel="shortcut icon" href="/static/img/favicon.ico">
 
   <title>{% block title %}{{ "Todo app" }}{% endblock %}</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-list@1.2.0/css/bulma-list.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-switch@2.0.4/dist/css/bulma-switch.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-popover@1.1.1/css/bulma-popover.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
   {% block styles %}
   {% endblock %}
 
+  <script src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"></script>
   <script src="https://unpkg.com/htmx.org@1.9.9"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
   {% block scripts %}
   {% endblock %}
@@ -28,9 +29,7 @@
 <body>
   {% include "navbar.html" %}
 
-  <div id="htmx-error">
-  
-  </div>
+  <div id="htmx-error"></div>
 
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}

@@ -1,9 +1,11 @@
 import flask
 import flask_login
 from models import db, User, Task
+from sqlalchemy import func
 from __main__ import app
 from werkzeug.security import check_password_hash
 import sys
+from collections import defaultdict
 
 @app.route("/")
 def home():
@@ -37,7 +39,6 @@ def list():
     return flask.render_template("pages/list.html")
 
 @app.route('/browse')
-@flask_login.login_required
 def browse():
     return flask.render_template("pages/browse.html")
 
@@ -125,7 +126,7 @@ def create():
     error="title or content missing!"
     return flask.render_template("components/error.html", content=error), 400, {"HX-Retarget": "#htmx-error"}
 
-@app.route("/user/update_private", methods=["POST"])
+@app.route("/list/update_private", methods=["POST"])
 @flask_login.login_required
 def update_private():
     is_private = flask.request.form.get("is_private")
@@ -134,3 +135,38 @@ def update_private():
     db.session.commit()
 
     return flask.render_template("components/switch.html"), 200
+
+@app.route("/browse/tasks", methods=["GET"])
+def browse_tasks():
+    if(flask_login.current_user.is_authenticated):
+        print("isyloged", file=sys.stderr)
+    else:
+        print("isnnnnloged", file=sys.stderr)
+
+    query = flask.request.args.get('query')
+    if query:
+        user_tasks = (
+            db.session.query(User, Task)
+            .join(Task)
+            .filter(User.has_private_profile == False)
+            .order_by(User.username, Task.created_at.desc())
+            .all()
+        )
+    else:
+        user_tasks = db.session.query(User, Task) \
+            .join(Task) \
+            .filter(User.has_private_profile == False) \
+            .order_by(User.username, Task.created_at.desc()) \
+            .all()
+
+    user_tasks_formatted = defaultdict(lambda: [])
+    for user, task in user_tasks:
+        user_tasks_formatted[user.username].append({
+            'title': task.title,
+            'content': task.content,
+            'is_completed': task.is_completed
+        })
+    user_tasks_formatted = dict(user_tasks_formatted)
+    print(user_tasks_formatted, file=sys.stderr)
+
+    return flask.render_template("components/user_tasks.html", user_tasks=user_tasks_formatted)

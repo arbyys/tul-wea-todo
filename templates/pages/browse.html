@@ -5,8 +5,31 @@
 <main class="padded">
     <header class="header mb-4">
         <span class="has-text-info has-text-weight-bold">></span>
-        <span>browse <span class="has-text-info">other users</span> tasks</span>
+        <span>browse tasks</span>
     </header>
+
+    <div class="mt-5">        
+        <div class="search-wrapper">
+
+            <input class="input is-info w-25" type="search" id="search" name="query" placeholder="filter tasks"
+                    hx-get="/browse/tasks"
+                    hx-trigger="input changed delay:400ms"
+                    hx-target="#task-list"
+                    hx-swap="innerHTML"
+                    hx-indicator="#spinner-search">
+
+            <img id="spinner-search" class="spinner-search htmx-indicator" src="{{ url_for('static', filename='img/loader.svg') }}" />
+
+        </div>
+
+        <div id="task-list" 
+            hx-get="/browse/tasks"
+            hx-include="#search" 
+            hx-trigger="load" 
+            hx-swap="innerHTML">
+
+        </div>
+    </div>
 </main>
 
 {% endblock %}

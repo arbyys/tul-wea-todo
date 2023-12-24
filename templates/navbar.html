@@ -1,17 +1,17 @@
 <nav class="navbar is-info is-spaced" role="navigation" aria-label="main navigation" x-data="{ isOpen: false }">
   <div class="navbar-brand">
     <a class="navbar-item is-size-4 has-text-weight-medium has-text-warning " href="/">
-      WeaTodoApp
+      todo app
     </a>
 
-    <a role="button" class="navbar-burger" @click="isOpen = !isOpen" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+    <a role="button" class="navbar-burger" @click="isOpen = !isOpen" aria-label="menu" aria-expanded="false" data-target="nav">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
 
-  <div id="navbarBasicExample" :class="{ 'is-active': isOpen, 'navbar-menu': true }">
+  <div id="nav" :class="{ 'is-active': isOpen, 'navbar-menu': true }">
     <div class="navbar-start">
         <a class="navbar-item is-danger" href="/list">
             my list
