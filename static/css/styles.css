@@ -46,6 +46,24 @@ main{
     align-items: center;
 }
 
+#accordion{
+    width: 50%;
+}
+
+#accordion a{
+    text-decoration: none;
+}
+
+#accordion .message-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.is-done div{
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
 .search-wrapper{
     position: relative;
     margin-bottom: 1rem;

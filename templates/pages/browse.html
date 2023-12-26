@@ -16,6 +16,7 @@
                     hx-trigger="input changed delay:400ms"
                     hx-target="#task-list"
                     hx-swap="innerHTML"
+                    hx-on:htmx:after-request="initAccordion()"
                     hx-indicator="#spinner-search">
 
             <img id="spinner-search" class="spinner-search htmx-indicator" src="{{ url_for('static', filename='img/loader.svg') }}" />
@@ -26,6 +27,7 @@
             hx-get="/browse/tasks"
             hx-include="#search" 
             hx-trigger="load" 
+            hx-on:htmx:after-request="initAccordion()"
             hx-swap="innerHTML">
 
         </div>
