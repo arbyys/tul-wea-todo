@@ -47,10 +47,12 @@ def browse():
 def tasks():
     query = flask.request.args.get('query')
     if query:
-        tasks = Task.query.filter(
+        tasks = Task.query \
+            .filter(
             (Task.user_id == flask_login.current_user.id) &
-            ((Task.title.ilike(f"%{query}%")) | (Task.content.ilike(f"%{query}%")))
-        ).order_by(Task.created_at.desc()).all()
+            ((Task.title.ilike(f"%{query}%")) | (Task.content.ilike(f"%{query}%")))) \
+            .order_by(Task.created_at.desc()) \
+            .all()
     else:
         tasks = Task.query.filter(Task.user_id == flask_login.current_user.id).order_by(Task.created_at.desc()).all()
     return flask.render_template("components/tasks.html", tasks=tasks)
@@ -138,20 +140,23 @@ def update_private():
 
 @app.route("/browse/tasks", methods=["GET"])
 def browse_tasks():
+    # TODO
     if(flask_login.current_user.is_authenticated):
         print("isyloged", file=sys.stderr)
     else:
         print("isnnnnloged", file=sys.stderr)
 
     query = flask.request.args.get('query')
+    
     if query:
-        user_tasks = (
-            db.session.query(User, Task)
-            .join(Task)
-            .filter(User.has_private_profile == False)
-            .order_by(User.username, Task.created_at.desc())
+        user_tasks = db.session.query(User, Task) \
+            .join(Task) \
+            .filter(User.has_private_profile == False) \
+            .filter((Task.title.ilike(f"%{query}%")) | 
+                    (Task.content.ilike(f"%{query}%")) | 
+                    (User.username.ilike(f"%{query}%"))) \
+            .order_by(User.username, Task.created_at.desc()) \
             .all()
-        )
     else:
         user_tasks = db.session.query(User, Task) \
             .join(Task) \

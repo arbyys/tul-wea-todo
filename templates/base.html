@@ -56,7 +56,10 @@
   })
 
   window.initAccordion = function initAccordion() {
-    const bulmaCollapsibleInstances = bulmaCollapsible.attach('.is-collapsible');
+    const instances = bulmaCollapsible.attach('.is-collapsible');
+    instances.forEach(instance => {
+        instance.collapse()
+    });
   };
   </script>
 </body>
