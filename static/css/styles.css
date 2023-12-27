@@ -59,6 +59,12 @@ main{
     justify-content: space-between;
 }
 
+hr{
+    background: linear-gradient(to right, transparent 1%, #3e8ed0 50%, transparent 99%);
+    opacity: 0.4;
+    margin: 3rem auto 1.5rem auto;
+}
+
 .is-done div{
     text-decoration: line-through;
     opacity: 0.5;
@@ -140,6 +146,10 @@ header.header{
     padding-right:1.7rem;
 }
 
+.create-wrapper{
+    display: flex;
+}
+
 @media screen and (min-width: 1024px) {
     nav.navbar .navbar-brand{
         margin-right: 2rem;
@@ -147,5 +157,68 @@ header.header{
         
     .task-list-main{
         width: 70%;
+    }
+}
+
+@media screen and (max-width: 1023px) {
+    .navbar-menu{
+        background-color: #3e8ed0;
+        color: white;
+    }
+    a.navbar-item{
+        transition: color 0.1s;
+        color: white;
+    }
+    a.navbar-item:hover{
+        background-color: inherit;
+        color: rgb(233, 233, 233);
+    }
+    .navbar-end{
+        margin-top: 2rem;
+    }
+    .create-wrapper div:not(.not-input){
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+    .create-wrapper div.not-input{
+        width: 25%;
+        margin-top: 0.5rem;
+    }
+    .create-wrapper{
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .w-25{
+        width: 100%;
+    }
+    #accordion{
+        width: 100%;
+    }
+    main.padded{
+        padding: 1rem;
+    }
+    .form-wrapper-bigger{
+        max-width: 100%;
+        margin-right: 1rem;
+    }
+    .field.is-grouped>.control:not(:last-child) {
+        margin-right: 0;
+    }
+    .list-item-content{
+        width: 100%;
+    }
+    .buttons{
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: 1.25rem;
+        width: 100%;
+    }
+    .buttons button, .buttons .displayer{
+        width: 100%;
+    }
+    .list-item{
+        display: block;
     }
 }

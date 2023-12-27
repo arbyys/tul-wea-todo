@@ -8,20 +8,21 @@
         <span>my list</span>
         <span class="has-text-info">(user <b>{{ current_user.username }}</b>)</span>
     </header>
-    
+
     <div class="form-wrapper-bigger mt-5">
         <form hx-put="/list/create"
               hx-swap="innerHTML"
               hx-on::after-request="this.reset()">
+
             <label class="label has-text-info">create new</label>
-            <div class="field is-grouped pl-3 mt-4">
+            <div class="create-wrapper field is-grouped pl-3 mt-4">
                 <div class="control">
                     <input class="input is-info" type="text" name="title" id="title" placeholder="title">
                 </div>
                 <div class="control is-expanded">
                     <input class="input is-info" type="text" name="content" id="content" placeholder="content">
                 </div>
-                <div class="control">
+                <div class="control not-input">
                     <button class="button is-info is-fullwidth" type="submit" title="create new task">
                         <span class="icon">
                         <i class="fas fa-plus"></i>
@@ -31,6 +32,8 @@
             </div>
         </form>
     </div>
+
+    <hr>
 
     <div class="mt-5">
         <label class="label has-overflow-ellipsis has-text-info">list</label>
@@ -57,6 +60,7 @@
         </div>
     </div>
 
+    <hr>
 
     <div class="settings mt-5">
         <label class="label has-text-info">settings</label>
