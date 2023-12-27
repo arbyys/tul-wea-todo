@@ -34,3 +34,5 @@
 
 ## TODO
 - checknout ctrl+f TODO
+- dodělat API
+- dopsat readme
