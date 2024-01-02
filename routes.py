@@ -184,7 +184,7 @@ def api_tasks():
     data_type = flask.request.args.get('type', 'json')
     query = flask.request.args.get('query')
     if query:
-        users_tasks = db.session.query(User, Task) \
+        tasks = db.session.query(User, Task) \
             .join(Task) \
             .filter(User.has_private_profile == False) \
             .filter((Task.title.ilike(f"%{query}%")) | 
@@ -193,16 +193,19 @@ def api_tasks():
             .order_by(User.username, Task.created_at.desc()) \
             .all()
     else:
-        users_tasks = db.session.query(User, Task) \
+        tasks = db.session.query(User, Task) \
             .join(Task) \
             .filter(User.has_private_profile == False) \
             .order_by(User.username, Task.created_at.desc()) \
             .all()
 
     if data_type == 'html':
-        return flask.render_template('components/api_tasks.html', data=users_tasks)
+        return flask.render_template('components/api_tasks.html', data=tasks)
     elif data_type == 'json':
-        return flask.jsonify(data=users_tasks)
+        tasks_formatted = []
+        for row in tasks:
+            tasks_formatted.append({**row.Task.to_dict(), **row.User.to_dict()})
+        return flask.jsonify(data=tasks_formatted)
     else:
         return flask.jsonify(error="invalid data type (must be 'html' or 'json')")
     

@@ -2,6 +2,7 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 import json
 from werkzeug.security import generate_password_hash
+from dataclasses import dataclass
 
 USERS_PATH = "default_users.json"
 db = SQLAlchemy()
@@ -15,6 +16,9 @@ class User(db.Model):
     has_private_profile = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        return dict(username=self.username)
     
     def __repr__(self):
         return f'{self.username} {self.password}'
@@ -42,6 +46,7 @@ class User(db.Model):
                 db.session.add(new_user)
         db.session.commit()
 
+
 class Task(db.Model):
     __tablename__ = "tasks"
 
@@ -52,3 +57,6 @@ class Task(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
     is_completed = db.Column(db.Boolean, default=False)
+
+    def to_dict(self):
+        return dict(title=self.title, content=self.content, is_completed=self.is_completed)

@@ -3,7 +3,12 @@
         <li>
             user: {{ row.User.username }}<br>
             title: {{ row.Task.title }}<br>
-            content: {{ row.Task.content }}
+            content: {{ row.Task.content }}<br>
+            {% if row.Task.is_completed %}
+            task is completed
+            {% else %}
+            task is not completed
+            {% endif %}
         </li>
     {% else %}
         <li>
