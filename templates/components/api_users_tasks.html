@@ -1,0 +1,22 @@
+<ul>
+    {% for username, tasks in data.items() %}
+        <li>
+            {{ username }}
+            <ul>
+                {% for task in tasks %}
+                    <li>
+                    title: <b>{{ task.title }}</b>, content: <b>{{ task.content }}</b>
+                    </li>
+                {% else %}
+                    <li>
+                        this user has no tasks
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% else %}
+        <li>
+            no users found
+        </li>
+    {% endfor %}
+</ul>

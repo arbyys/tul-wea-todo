@@ -7,6 +7,8 @@ from werkzeug.security import check_password_hash
 import sys
 from collections import defaultdict
 
+# WEB routes
+
 @app.route("/")
 def home():
     return flask.render_template("pages/home.html")
@@ -172,6 +174,70 @@ def browse_tasks():
             'is_completed': task.is_completed
         })
     user_tasks_formatted = dict(user_tasks_formatted)
-    print(user_tasks_formatted, file=sys.stderr)
 
     return flask.render_template("components/user_tasks.html", user_tasks=user_tasks_formatted)
+
+# API routes
+
+@app.route("/api/tasks")
+def api_tasks():
+    data_type = flask.request.args.get('type', 'json')
+    query = flask.request.args.get('query')
+    if query:
+        users_tasks = db.session.query(User, Task) \
+            .join(Task) \
+            .filter(User.has_private_profile == False) \
+            .filter((Task.title.ilike(f"%{query}%")) | 
+                    (Task.content.ilike(f"%{query}%")) | 
+                    (User.username.ilike(f"%{query}%"))) \
+            .order_by(User.username, Task.created_at.desc()) \
+            .all()
+    else:
+        users_tasks = db.session.query(User, Task) \
+            .join(Task) \
+            .filter(User.has_private_profile == False) \
+            .order_by(User.username, Task.created_at.desc()) \
+            .all()
+
+    if data_type == 'html':
+        return flask.render_template('components/api_tasks.html', data=users_tasks)
+    elif data_type == 'json':
+        return flask.jsonify(data=users_tasks)
+    else:
+        return flask.jsonify(error="invalid data type (must be 'html' or 'json')")
+    
+@app.route("/api/users_tasks")
+def api_users_tasks():
+    data_type = flask.request.args.get('type', 'json')
+    query = flask.request.args.get('query')
+    if query:
+        users_tasks = db.session.query(User, Task) \
+            .join(Task) \
+            .filter(User.has_private_profile == False) \
+            .filter((Task.title.ilike(f"%{query}%")) | 
+                    (Task.content.ilike(f"%{query}%")) | 
+                    (User.username.ilike(f"%{query}%"))) \
+            .order_by(User.username, Task.created_at.desc()) \
+            .all()
+    else:
+        users_tasks = db.session.query(User, Task) \
+            .join(Task) \
+            .filter(User.has_private_profile == False) \
+            .order_by(User.username, Task.created_at.desc()) \
+            .all()
+        
+    users_tasks_formatted = defaultdict(lambda: [])
+    for user, task in users_tasks:
+        users_tasks_formatted[user.username].append({
+            'title': task.title,
+            'content': task.content,
+            'is_completed': task.is_completed
+        })
+    users_tasks_formatted = dict(users_tasks_formatted)
+
+    if data_type == 'html':
+        return flask.render_template('components/api_tasks.html', data=users_tasks_formatted)
+    elif data_type == 'json':
+        return flask.jsonify(data=users_tasks_formatted)
+    else:
+        return flask.jsonify(error="invalid data type (must be 'html' or 'json')")

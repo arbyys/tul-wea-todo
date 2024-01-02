@@ -1,0 +1,13 @@
+<ul>
+    {% for row in data %}
+        <li>
+            user: {{ row.User.username }}<br>
+            title: {{ row.Task.title }}<br>
+            content: {{ row.Task.content }}
+        </li>
+    {% else %}
+        <li>
+            no tasks found
+        </li>
+    {% endfor %}
+</ul>
