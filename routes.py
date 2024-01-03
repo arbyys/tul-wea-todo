@@ -22,7 +22,7 @@ def home():
 def login():
     if flask.request.method == "GET":
         return flask.render_template("pages/login.html")
-    else: # POST
+    elif flask.request.method == "POST":
         username = flask.request.form['username']
         password = flask.request.form['password']
 

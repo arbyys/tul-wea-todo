@@ -65,6 +65,13 @@ hr{
     margin: 3rem auto 1.5rem auto;
 }
 
+hr.white{
+    background: white;
+    opacity: 0.34;
+    margin: 2rem auto;
+}
+
+
 .is-done div{
     text-decoration: line-through;
     opacity: 0.5;
@@ -206,6 +213,12 @@ header.header{
 	margin-right: 0;
 }
 
+.card {
+    background-color:#3e8ed0;
+    color: white;
+    margin: 1.5rem 1rem;
+}
+
 
 @media screen and (min-width: 1024px) {
     nav.navbar .navbar-brand{
@@ -214,6 +227,11 @@ header.header{
         
     .task-list-main{
         width: 70%;
+    }
+
+    .main-wrapper{
+        width: 80%;
+        margin: 0 auto;
     }
 }
 

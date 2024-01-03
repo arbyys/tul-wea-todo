@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 import json
 from werkzeug.security import generate_password_hash
 from dataclasses import dataclass
@@ -7,7 +8,7 @@ from dataclasses import dataclass
 USERS_PATH = "default_users.json"
 db = SQLAlchemy()
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -19,18 +20,6 @@ class User(db.Model):
     
     def to_dict(self):
         return dict(username=self.username)
-    
-    def __repr__(self):
-        return f'{self.username} {self.password}'
-
-    def is_active(self):
-        return True  # TODO
-
-    def is_anonymous(self):
-        return False  # TODO
-
-    def is_authenticated(self):
-        return True  # TODO
 
     def get_id(self):
         return str(self.id)

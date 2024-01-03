@@ -3,7 +3,52 @@
 {% block content %}
 
 <main>
-home
+    <div class="columns main-wrapper">
+        <div class="column card">
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-content">
+                        <p class="title is-4 has-text-warning">my list</p>
+                    </div>
+                </div>
+
+                <hr class="white">
+
+                <div class="content">
+                    <div class="main-text">
+                        <p>allows user to create new tasks, edit or remove existing ones and declare them as completed</p>
+                        <p>also provides list of all created tasks with the ability of filtering them + full-text search</p>
+                    </div>
+
+                    <hr class="white">
+                    
+                    <a class="button is-warning" href="/browse">/list</a>
+                </div>
+            </div>
+        </div>
+        <div class="column card">
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-content">
+                        <p class="title is-4 has-text-warning">browse</p>
+                    </div>
+                </div>
+
+                <hr class="white">
+
+                <div class="content">
+                    <div class="main-text">
+                        <p>provides browsing tool to view other users and their created tasks</p>
+                        <p>users will not be shown in the list if their account has been declared <b>private</b></p>
+                    </div>
+                    
+                    <hr class="white">
+                    
+                    <a class="button is-warning" href="/browse">/browse</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 
 {% endblock %}
