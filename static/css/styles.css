@@ -71,7 +71,6 @@ hr.white{
     margin: 2rem auto;
 }
 
-
 .is-done div{
     text-decoration: line-through;
     opacity: 0.5;
@@ -219,6 +218,9 @@ header.header{
     margin: 1.5rem 1rem;
 }
 
+.main-wrapper{
+    margin: 0 auto;
+}
 
 @media screen and (min-width: 1024px) {
     nav.navbar .navbar-brand{
@@ -236,29 +238,39 @@ header.header{
 }
 
 @media screen and (max-width: 1023px) {
+    .main-wrapper{
+        width: 95%;
+    }
+
     .navbar-menu{
         background-color: #3e8ed0;
         color: white;
     }
+
     a.navbar-item{
         transition: color 0.1s;
         color: white;
     }
+
     a.navbar-item:hover{
         background-color: inherit;
         color: rgb(233, 233, 233);
     }
+
     .navbar-end{
         margin-top: 2rem;
     }
+
     .create-wrapper div:not(.not-input){
         width: 100%;
         margin-top: 0.5rem;
     }
+
     .create-wrapper div.not-input{
         width: 25%;
         margin-top: 0.5rem;
     }
+
     .create-wrapper{
         flex-wrap: wrap;
     }
