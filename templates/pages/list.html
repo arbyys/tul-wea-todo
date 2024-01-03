@@ -40,12 +40,15 @@
         
         <div class="search-wrapper ml-3">
 
-            <input class="input is-info w-25" type="search" id="search" name="query" placeholder="filter tasks"
-                    hx-get="/list/tasks"
-                    hx-trigger="input changed delay:400ms"
-                    hx-target="#task-list"
-                    hx-swap="innerHTML"
-                    hx-indicator="#spinner-search">
+            <form id="filters" class="w-100">
+                <input class="input is-info w-25" type="search" id="search" name="query" placeholder="filter tasks"
+                        hx-get="/list/tasks"
+                        hx-trigger="input changed delay:400ms"
+                        hx-target="#task-list"
+                        hx-swap="innerHTML"
+                        hx-indicator="#spinner-search">
+                
+            </form>
 
             <img id="spinner-search" class="spinner-search htmx-indicator" src="{{ url_for('static', filename='img/loader.svg') }}" />
 
@@ -53,7 +56,7 @@
 
         <div id="task-list" 
             hx-get="/list/tasks"
-            hx-include="#search" 
+            hx-include="#filters" 
             hx-trigger="load, updateList from:body" 
             hx-swap="innerHTML">
 
