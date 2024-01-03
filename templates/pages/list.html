@@ -41,22 +41,47 @@
         <div class="search-wrapper ml-3">
 
             <form id="filters" class="w-100">
-                <input class="input is-info w-25" type="search" id="search" name="query" placeholder="filter tasks"
+                <input class="input is-info w-25" type="search" id="search" name="query" placeholder="search"
                         hx-get="/list/tasks"
                         hx-trigger="input changed delay:400ms"
                         hx-target="#task-list"
                         hx-swap="innerHTML"
-                        hx-indicator="#spinner-search">
-                
+                        hx-indicator="#spinner-search"
+                        hx-include="#filters">
+                <div class="switch-field">
+                    <input type="radio" id="radio-all" name="filter" value="all" checked
+                        hx-get="/list/tasks"
+                        hx-target="#task-list"
+                        hx-swap="innerHTML"
+                        hx-indicator="#spinner-search"
+                        hx-include="#filters"
+                    >
+                    <label for="radio-all">all tasks</label>
+                    <input type="radio" id="radio-done" name="filter" value="done"
+                        hx-get="/list/tasks"
+                        hx-target="#task-list"
+                        hx-swap="innerHTML"
+                        hx-indicator="#spinner-search"
+                        hx-include="#filters"
+                    >
+                    <label for="radio-done">done</label>
+                    <input type="radio" id="radio-notdone" name="filter" value="notdone"
+                        hx-get="/list/tasks"
+                        hx-target="#task-list"
+                        hx-swap="innerHTML"
+                        hx-indicator="#spinner-search"
+                        hx-include="#filters"
+                    >
+                    <label for="radio-notdone">not done</label>
+                </div>
             </form>
 
             <img id="spinner-search" class="spinner-search htmx-indicator" src="{{ url_for('static', filename='img/loader.svg') }}" />
-
         </div>
 
         <div id="task-list" 
             hx-get="/list/tasks"
-            hx-include="#filters" 
+            hx-include="#filters"
             hx-trigger="load, updateList from:body" 
             hx-swap="innerHTML">
 

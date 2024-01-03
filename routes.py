@@ -7,6 +7,11 @@ from werkzeug.security import check_password_hash
 import sys
 from collections import defaultdict
 
+class Filter:
+    ALL = None
+    DONE = True
+    NOT_DONE = False
+
 # WEB routes
 
 @app.route("/")
@@ -48,15 +53,23 @@ def browse():
 @flask_login.login_required
 def tasks():
     query = flask.request.args.get('query')
+    filter = flask.request.args.get('filter')
+    filter = Filter.DONE if filter == "done" else (Filter.NOT_DONE if filter == "notdone" else Filter.ALL)
+    
     if query:
         tasks = Task.query \
             .filter(
             (Task.user_id == flask_login.current_user.id) &
             ((Task.title.ilike(f"%{query}%")) | (Task.content.ilike(f"%{query}%")))) \
+            .filter(True if filter is None else (Task.is_completed == filter)) \
             .order_by(Task.created_at.desc()) \
             .all()
     else:
-        tasks = Task.query.filter(Task.user_id == flask_login.current_user.id).order_by(Task.created_at.desc()).all()
+        tasks = Task.query \
+            .filter(Task.user_id == flask_login.current_user.id) \
+            .filter(True if filter is None else (Task.is_completed == filter)) \
+            .order_by(Task.created_at.desc()) \
+            .all()
     return flask.render_template("components/tasks.html", tasks=tasks)
 
 @app.route("/list/edit/<id>", methods=["POST"])
