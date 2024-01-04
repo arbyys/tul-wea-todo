@@ -155,12 +155,6 @@ def update_private():
 
 @app.route("/browse/tasks", methods=["GET"])
 def browse_tasks():
-    # TODO
-    if(flask_login.current_user.is_authenticated):
-        print("isyloged", file=sys.stderr)
-    else:
-        print("isnnnnloged", file=sys.stderr)
-
     query = flask.request.args.get('query')
     
     if query:
