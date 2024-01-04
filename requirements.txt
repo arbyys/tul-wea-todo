@@ -3,3 +3,4 @@ Jinja2==3.1.2
 python-dotenv==1.0.0
 Flask-SQLAlchemy==3.1.1
 Flask-Login==0.6.3
+gunicorn==19.10.0
